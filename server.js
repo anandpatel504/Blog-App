@@ -7,36 +7,37 @@ app.use(express.json());
 var knex = require("./models/database")
 // console.log('database', knex)
 
-// signup
+// routes to signup.js
 var signup = express.Router();
 app.use("/", signup);
 require("./Routes/signup")(signup, jwt, knex);
 
-// login
+// routes to login.js
 var login = express.Router();
 app.use("/", login);
 require("./Routes/login")(login, jwt, knex);
 
-// create_post
+// routes to create_post.js
 var create_post = express.Router();
 app.use("/", create_post);
 require("./Routes/create_post")(create_post, jwt, knex);
 
-// get_posts
+// routes to get_posts.js
 var get_posts = express.Router();
 app.use("/", get_posts);
 require("./Routes/get_posts")(get_posts, jwt, knex);
 
-// like_dislike
+// routes to like_dislike.js
 var like_dislike = express.Router();
 app.use("/", like_dislike);
 require("./Routes/like_dislike")(like_dislike, jwt, knex);
 
-// get_like_dislike
+// routes to get_like_dislike.js
 var get_like_dislike = express.Router();
 app.use("/", get_like_dislike);
 require("./Routes/get_like_dislike")(get_like_dislike, jwt, knex);
 
+// the port listener
 var server = app.listen(3050, function(){
     var host = server.address().address;
     var port = server.address().port;
