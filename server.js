@@ -1,61 +1,11 @@
 const express = require("express");
-const mysql = require("mysql");
 const app = express();
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser')
 app.use(express.json()); 
 
-const env = require('dotenv').config()
-console.log(env)
-
-var knex = require('knex')({
-    client: "mysql",
-    connection: {
-        host : process.env.host,
-        user : process.env.user,
-        password : process.env.password,
-        database : process.env.database
-    }
-})
-
-// Create auth_details table
-    knex.schema.createTable('user', function(table){
-        table.increments('id').primary();
-        table.string('name');
-        table.string('email');
-        table.string('password');
-     }).then(() => {
-        console.log("User_post table created successfully....")
-     }).catch(() => {
-        console.log("this table is already exists!");
-    })
-
-// Create Table user_post Table;
-    knex.schema.createTable('user_post', function(table){
-        table.increments('id').primary();
-        table.integer('user_id');
-        table.string('text');
-        table.string('description');
-        table.date('Date');
-     }).then(() => {
-        console.log("User_post table created successfully....")
-     }).catch(() => {
-        console.log("this table is already exists!");
-    })
-
-// Create Table like/dislike;
-    knex.schema.createTable('like_dislike', function(table){
-        table.increments('id').primary();
-        table.integer('post_id');
-        table.integer('user_id');
-        table.string('like');
-        table.string('dislike');
-     }).then(() => {
-        console.log("like_dislike table created successfully....")
-     }).catch(() => {
-        console.log("this table is already exists!");
-    })
-
+var knex = require("./models/database")
+// console.log('database', knex)
 
 // signup
 var signup = express.Router();
@@ -87,11 +37,9 @@ var get_like_dislike = express.Router();
 app.use("/", get_like_dislike);
 require("./Routes/get_like_dislike")(get_like_dislike, jwt, knex);
 
-
 var server = app.listen(3050, function(){
     var host = server.address().address;
     var port = server.address().port;
     console.log("server is running port....")
     console.log(host, port);
-
 })
