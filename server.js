@@ -7,12 +7,12 @@ app.use(express.json());
 var knex = require("./models/database")
 // console.log('database', knex)
 
-// routes to signup.js
+// route to signup.js
 var signup = express.Router();
 app.use("/", signup);
 require("./Routes/signup")(signup, jwt, knex);
 
-// routes to login.js
+// route to login.js
 var login = express.Router();
 app.use("/", login);
 require("./Routes/login")(login, jwt, knex);
@@ -22,17 +22,17 @@ var create_post = express.Router();
 app.use("/", create_post);
 require("./Routes/create_post")(create_post, jwt, knex);
 
-// routes to get_posts.js
+// route to get_posts.js
 var get_posts = express.Router();
 app.use("/", get_posts);
 require("./Routes/get_posts")(get_posts, jwt, knex);
 
-// routes to like_dislike.js
+// route to like_dislike.js
 var like_dislike = express.Router();
 app.use("/", like_dislike);
 require("./Routes/like_dislike")(like_dislike, jwt, knex);
 
-// routes to get_like_dislike.js
+// route to get_like_dislike.js
 var get_like_dislike = express.Router();
 app.use("/", get_like_dislike);
 require("./Routes/get_like_dislike")(get_like_dislike, jwt, knex);
